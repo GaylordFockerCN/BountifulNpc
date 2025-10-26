@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.p1nero.bountiful_npc.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "bountiful_npc.refmap.json",
+  "mixins": [
+    "BountifulModForgeMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}
