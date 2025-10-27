@@ -21,7 +21,7 @@ group = mod_group_id
 version = mod_version
 
 base {
-    archivesName = mod_id
+    archivesName = mod_id + "-forge-1.20.1"
 }
 
 java {
@@ -102,8 +102,7 @@ dependencies {
     implementation fg.deobf("curse.maven:kotlin-for-forge-351264:5402061")
 
     implementation fg.deobf("curse.maven:lithostitched-936015:6742615")//村庄插入用
-
-    implementation fg.deobf("libs:p1nero_dl:1.7.0")//对话
+    implementation fg.deobf("curse.maven:p1neros-dialogue-lib-1274526:7156978")//对话联动
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
 }
