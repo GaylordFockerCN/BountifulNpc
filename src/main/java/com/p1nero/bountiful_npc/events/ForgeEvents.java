@@ -5,7 +5,6 @@ import com.p1nero.bountiful_npc.villager.BountifulVillagers;
 import io.ejekta.bountiful.bounty.BountyData;
 import io.ejekta.bountiful.content.BountyItem;
 import io.ejekta.bountiful.content.board.BoardBlockEntity;
-import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
