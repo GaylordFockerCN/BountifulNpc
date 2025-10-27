@@ -1,5 +1,6 @@
 package com.p1nero.bountiful_npc.dialog;
 
+import com.p1nero.bountiful_npc.client.sound.BountifulNpcSounds;
 import com.p1nero.bountiful_npc.villager.BountifulVillagers;
 import com.p1nero.dialog_lib.api.EntityDialogueExtension;
 import com.p1nero.dialog_lib.api.IEntityDialogueExtension;
@@ -13,6 +14,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntityType;
@@ -26,14 +29,22 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @EntityDialogueExtension
 public class ReceptionistDialogExtension implements IEntityDialogueExtension<Villager> {
+
     @Override
     public EntityType<Villager> getEntityType() {
         return EntityType.VILLAGER;
     }
 
     @Override
-    public boolean canInteract(Player player, Villager currentTalking) {
+    public boolean canInteractWith(Player player, Villager currentTalking) {
         return currentTalking.getVillagerData().getProfession() == BountifulVillagers.RECEPTIONIST.get();
+    }
+
+    @Override
+    public void onPlayerInteract(Player player, Villager currentTalking, InteractionHand hand) {
+        IEntityDialogueExtension.super.onPlayerInteract(player, currentTalking, hand);
+        player.level().playSound(null, currentTalking.getOnPos(), BountifulNpcSounds.ON_RECEPTIONIST_INTERACT.get(),
+                SoundSource.VOICE, 1.0F, 1.0F);
     }
 
     @Override
@@ -95,7 +106,7 @@ public class ReceptionistDialogExtension implements IEntityDialogueExtension<Vil
             }
 
         });
-        removeCurrentTalkingEntity(serverPlayer);
+        removeConservingPlayer(villager);
     }
 
 }

@@ -12,6 +12,6 @@ public class BNSoundGenerator extends BNSoundProvider {
 
     @Override
     public void registerSounds() {
-        generateNewSoundWithSubtitle(BountifulNpcSounds.ON_RECEPTIONIST_INTERACT, "on_interaction", 1);
+        generateNewSoundWithSubtitle(BountifulNpcSounds.ON_RECEPTIONIST_INTERACT, "receptionist/on_interact", 1);
     }
 }

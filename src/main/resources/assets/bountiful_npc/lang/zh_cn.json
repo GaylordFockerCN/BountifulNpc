@@ -1,6 +1,6 @@
 {
   "entity.minecraft.villager.bountiful_npc.receptionist": "接待员",
-  "dialog.minecraft.villager.bountiful_npc.1": "向着星辰与深渊，欢迎来到冒险家协会！",
-  "option.minecraft.villager.bountiful_npc.1": "[查看悬赏板]",
-  "option.minecraft.villager.bountiful_npc.2": "[交付]"
+  "dialog.minecraft.villager.bountiful_npc.1": "\n向着星辰与深渊，欢迎来到冒险家协会！",
+  "option.minecraft.villager.bountiful_npc.1": "[查看委托]",
+  "option.minecraft.villager.bountiful_npc.2": "[完成委托]"
 }

@@ -1,6 +1,6 @@
 {
   "entity.minecraft.villager.bountiful_npc.receptionist": "Receptionist",
-  "dialog.minecraft.villager.bountiful_npc.1": "Ad astra abyssoque! Welcome to the Adventurers' Guild!",
+  "dialog.minecraft.villager.bountiful_npc.1": "\nAd astra abyssoque! Welcome to the Adventurers' Guild!",
   "option.minecraft.villager.bountiful_npc.1": "[View Commissions]",
   "option.minecraft.villager.bountiful_npc.2": "[Complete Commission]"
 }
