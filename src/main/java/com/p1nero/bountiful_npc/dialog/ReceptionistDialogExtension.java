@@ -1,10 +1,12 @@
 package com.p1nero.bountiful_npc.dialog;
 
+import com.p1nero.bountiful_npc.BountifulNpcMod;
 import com.p1nero.bountiful_npc.client.sound.BountifulNpcSounds;
 import com.p1nero.bountiful_npc.villager.BountifulVillagers;
-import com.p1nero.dialog_lib.api.EntityDialogueExtension;
-import com.p1nero.dialog_lib.api.IEntityDialogueExtension;
-import com.p1nero.dialog_lib.client.screen.DialogueScreenBuilder;
+import com.p1nero.dialog_lib.api.entity.EntityDialogueExtension;
+import com.p1nero.dialog_lib.api.entity.IEntityDialogueExtension;
+import com.p1nero.dialog_lib.client.screen.DialogueScreen;
+import com.p1nero.dialog_lib.client.screen.builder.StreamDialogueScreenBuilder;
 import io.ejekta.bountiful.bounty.BountyData;
 import io.ejekta.bountiful.content.BountifulContent;
 import io.ejekta.bountiful.content.board.BoardBlockEntity;
@@ -26,7 +28,7 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@EntityDialogueExtension
+@EntityDialogueExtension(modId = BountifulNpcMod.MOD_ID)
 public class ReceptionistDialogExtension implements IEntityDialogueExtension<Villager> {
 
     @Override
@@ -34,6 +36,9 @@ public class ReceptionistDialogExtension implements IEntityDialogueExtension<Vil
         return EntityType.VILLAGER;
     }
 
+    /**
+     * 仅特定职业才会对话
+     */
     @Override
     public boolean canInteractWith(Player player, Villager currentTalking) {
         return currentTalking.getVillagerData().getProfession() == BountifulVillagers.RECEPTIONIST.get();
@@ -46,6 +51,9 @@ public class ReceptionistDialogExtension implements IEntityDialogueExtension<Vil
                 SoundSource.VOICE, 1.0F, 1.0F);
     }
 
+    /**
+     * 获取信息，用于客户端构造对话
+     */
     @Override
     public CompoundTag getServerData(ServerPlayer player, Villager currentTalking, InteractionHand hand, CompoundTag senderData) {
         if(player.getItemInHand(hand).is(BountifulContent.INSTANCE.getBOUNTY_ITEM())) {
@@ -57,20 +65,26 @@ public class ReceptionistDialogExtension implements IEntityDialogueExtension<Vil
         return senderData;
     }
 
+    /**
+     * 针对不同的情况给不同的对话
+     */
     @Override
     @OnlyIn(Dist.CLIENT)
-    public DialogueScreenBuilder getDialogBuilder(DialogueScreenBuilder dialogueScreenBuilder, LocalPlayer localPlayer, Villager villager, CompoundTag serverData) {
+    public DialogueScreen getDialogScreen(StreamDialogueScreenBuilder dialogueScreenBuilder, LocalPlayer localPlayer, Villager villager, CompoundTag serverData) {
         dialogueScreenBuilder.start(Component.translatable("dialog.minecraft.villager.bountiful_npc.1"))
-                .addFinalChoice(Component.translatable("option.minecraft.villager.bountiful_npc.1"), 1);
+                .addFinalOption(Component.translatable("option.minecraft.villager.bountiful_npc.1"), 1);
         if(serverData.getBoolean("isBounty")) {
-            dialogueScreenBuilder.addFinalChoice(Component.translatable("option.minecraft.villager.bountiful_npc.2").withStyle(ChatFormatting.GREEN), 2);
+            dialogueScreenBuilder.addFinalOption(Component.translatable("option.minecraft.villager.bountiful_npc.2").withStyle(ChatFormatting.GREEN), 2);
         }
         if(serverData.getBoolean("isDecree")) {
-            dialogueScreenBuilder.addFinalChoice(Component.translatable("option.minecraft.villager.bountiful_npc.2").withStyle(ChatFormatting.GREEN), 1);
+            dialogueScreenBuilder.addFinalOption(Component.translatable("option.minecraft.villager.bountiful_npc.2").withStyle(ChatFormatting.GREEN), 1);
         }
-        return dialogueScreenBuilder;
+        return dialogueScreenBuilder.build();
     }
 
+    /**
+     * 处理不同回调值
+     */
     @Override
     public void handleNpcInteraction(Villager villager, ServerPlayer serverPlayer, int i) {
 
