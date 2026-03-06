@@ -103,7 +103,7 @@ dependencies {
 
     implementation fg.deobf("curse.maven:lithostitched-936015:6742615")//村庄插入用
 //    implementation fg.deobf("curse.maven:p1neros-dialogue-lib-1274526:7156978")//对话联动
-    implementation fg.deobf("libs:p1nero_dl:2.0.0")
+    implementation fg.deobf("curse.maven:p1neros-dialogue-lib-1274526:7177400")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
 }

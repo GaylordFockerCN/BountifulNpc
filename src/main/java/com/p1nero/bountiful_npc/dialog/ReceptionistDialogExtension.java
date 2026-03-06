@@ -18,6 +18,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -27,6 +28,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 
 @EntityDialogueExtension(modId = BountifulNpcMod.MOD_ID)
 public class ReceptionistDialogExtension implements IEntityDialogueExtension<Villager> {
@@ -45,6 +47,11 @@ public class ReceptionistDialogExtension implements IEntityDialogueExtension<Vil
     }
 
     @Override
+    public @Nullable InteractionResult shouldCancelInteract(Player player, Villager currentTalking, InteractionHand hand) {
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
     public void onPlayerInteract(Player player, Villager currentTalking, InteractionHand hand) {
         IEntityDialogueExtension.super.onPlayerInteract(player, currentTalking, hand);
         player.level().playSound(null, currentTalking.getOnPos(), BountifulNpcSounds.ON_RECEPTIONIST_INTERACT.get(),
@@ -56,10 +63,10 @@ public class ReceptionistDialogExtension implements IEntityDialogueExtension<Vil
      */
     @Override
     public CompoundTag getServerData(ServerPlayer player, Villager currentTalking, InteractionHand hand, CompoundTag senderData) {
-        if(player.getItemInHand(hand).is(BountifulContent.INSTANCE.getBOUNTY_ITEM())) {
+        if(player.getMainHandItem().is(BountifulContent.INSTANCE.getBOUNTY_ITEM())) {
             senderData.putBoolean("isBounty", true);
         }
-        if(player.getItemInHand(hand).is(BountifulContent.INSTANCE.getDECREE_ITEM())) {
+        if(player.getMainHandItem().is(BountifulContent.INSTANCE.getDECREE_ITEM())) {
             senderData.putBoolean("isDecree", true);
         }
         return senderData;
