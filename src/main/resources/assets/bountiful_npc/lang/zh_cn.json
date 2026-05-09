@@ -1,6 +1,9 @@
 {
   "entity.minecraft.villager.bountiful_npc.receptionist": "接待员",
-  "dialog.minecraft.villager.bountiful_npc.1": "\n向着星辰与深渊，欢迎来到冒险家协会！",
-  "option.minecraft.villager.bountiful_npc.1": "[查看委托]",
-  "option.minecraft.villager.bountiful_npc.2": "[完成委托]"
+  "entity.minecraft.villager.bountiful_npc.answer1": "\n向着星辰与深渊，欢迎来到冒险家协会！",
+  "entity.minecraft.villager.bountiful_npc.answer2": "\n冒险家协会将会根据[悬赏令]来发布不同的[悬赏委托]！[悬赏委托]将随着时间推移而增加，请耐心等待！不同冒险家协会所发布的[悬赏委托]也将有所不同。任务完成后就将[悬赏委托]给我吧，我将根据任务给予你奖励！",
+  "entity.minecraft.villager.bountiful_npc.option1": "[查看委托]",
+  "entity.minecraft.villager.bountiful_npc.option2": "[完成委托]",
+  "entity.minecraft.villager.bountiful_npc.option3": "[关于]",
+  "entity.minecraft.villager.bountiful_npc.option0": "[返回]"
 }

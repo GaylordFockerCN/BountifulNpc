@@ -3,6 +3,8 @@ package com.p1nero.bountiful_npc.dialog;
 import com.p1nero.bountiful_npc.BountifulNpcMod;
 import com.p1nero.bountiful_npc.client.sound.BountifulNpcSounds;
 import com.p1nero.bountiful_npc.villager.BountifulVillagers;
+import com.p1nero.dialog_lib.api.component.DialogNode;
+import com.p1nero.dialog_lib.api.component.DialogueComponentBuilder;
 import com.p1nero.dialog_lib.api.entity.EntityDialogueExtension;
 import com.p1nero.dialog_lib.api.entity.IEntityDialogueExtension;
 import com.p1nero.dialog_lib.client.screen.DialogueScreen;
@@ -14,7 +16,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
@@ -78,15 +79,19 @@ public class ReceptionistDialogExtension implements IEntityDialogueExtension<Vil
     @Override
     @OnlyIn(Dist.CLIENT)
     public DialogueScreen getDialogScreen(StreamDialogueScreenBuilder dialogueScreenBuilder, LocalPlayer localPlayer, Villager villager, CompoundTag serverData) {
-        dialogueScreenBuilder.start(Component.translatable("dialog.minecraft.villager.bountiful_npc.1"))
-                .addFinalOption(Component.translatable("option.minecraft.villager.bountiful_npc.1"), 1);
+        DialogueComponentBuilder builder = dialogueScreenBuilder.getComponentBuildr();
+        DialogNode root = new DialogNode(builder.ans(1), builder.opt(0));
+        DialogNode about = new DialogNode(builder.ans(2), builder.opt(3));
+        about.addChild(root);
+        root.addLeaf(builder.opt(1).withStyle(ChatFormatting.GOLD), 1);
         if(serverData.getBoolean("isBounty")) {
-            dialogueScreenBuilder.addFinalOption(Component.translatable("option.minecraft.villager.bountiful_npc.2").withStyle(ChatFormatting.GREEN), 2);
+            root.addLeaf(builder.opt(2).withStyle(ChatFormatting.GREEN), 2);
         }
         if(serverData.getBoolean("isDecree")) {
-            dialogueScreenBuilder.addFinalOption(Component.translatable("option.minecraft.villager.bountiful_npc.2").withStyle(ChatFormatting.GREEN), 1);
+            root.addLeaf(builder.opt(2).withStyle(ChatFormatting.GREEN), 1);
         }
-        return dialogueScreenBuilder.build();
+        root.addChild(about);
+        return dialogueScreenBuilder.buildWith(root);
     }
 
     /**
